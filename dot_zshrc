@@ -1,0 +1,49 @@
+# Oh my zsh
+export ZSH="$HOME/.oh-my-zsh"
+
+ZSH_THEME="robbyrussell"
+
+zstyle ':omz:update' mode reminder
+zstyle ':omz:update' frequency 7
+
+plugins=(
+  brew
+  bun
+  chezmoi
+  gh                            # Completions for GitHub CLI
+  eza                           # Aliases that invoke eza instead of ls
+  git                           # Git aliases and functions
+  fzf                           # Fuzzy finder for comamnd history and file searching (Ctrl+r, Ctrl+t)
+  direnv                        # Create direnv hook for .envrc files
+  zoxide                        # Jump to frequent directories
+  zsh-autosuggestions           # Grey text suggestions as you type
+  zsh-syntax-highlighting       # Must be last plugin
+)
+
+# git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+# git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+source $ZSH/oh-my-zsh.sh
+
+# Environment
+export LANG="en_GB.UTF-8"
+export EDITOR="nvim"
+export VISUAL="nvim"
+export BAT_PAGER="less -R"
+export PAGER="bat"
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+# Path
+export PATH=~/.local/bin:$PATH
+export PATH="~/.dotnet/tools:$PATH"
+
+# Aliases
+alias v=nvim
+alias vi=nvim
+alias vim=nvim
+
+alias bb="brew update && brew upgrade"
+
+# Secrets
+[ -f ~/.secrets ] && source ~/.secrets
+
