@@ -47,3 +47,6 @@ alias bb="brew update && brew upgrade"
 # Secrets
 [ -f ~/.secrets ] && source ~/.secrets
 
+# Shell
+source ~/.config/shell/rc
+
