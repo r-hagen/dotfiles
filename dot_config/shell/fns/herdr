@@ -1,0 +1,34 @@
+#!/usr/bin/env sh
+
+# Create a Herdr Dev Layout with editor, ai, and terminal (herdr version of tdl)
+# Usage: hdl <c|cx|codex|other_ai> [<second_ai>]
+hdl() {
+  [[ -z $1 ]] && {
+    echo "Usage: hdl <c|cx|codex|other_ai> [<second_ai>]"
+    return 1
+  }
+  [[ -z $HERDR_ENV ]] && {
+    echo "You must start herdr to use hdl."
+    return 1
+  }
+
+  local current_dir="${PWD}"
+  local editor_pane="$HERDR_PANE_ID"
+  local ai_pane ai2_pane
+  local ai="$1"
+  local ai2="$2"
+
+  herdr tab rename "$HERDR_TAB_ID" "$(basename "$current_dir")" >/dev/null
+
+  # --ratio is the share kept by the pane being split
+  herdr pane split "$editor_pane" --direction down --ratio 0.85 --cwd "$current_dir" --no-focus >/dev/null
+  ai_pane=$(herdr pane split "$editor_pane" --direction right --ratio 0.7 --cwd "$current_dir" --no-focus | jq -r '.result.pane.pane_id')
+
+  if [[ -n $ai2 ]]; then
+    ai2_pane=$(herdr pane split "$ai_pane" --direction down --cwd "$current_dir" --no-focus | jq -r '.result.pane.pane_id')
+    herdr pane run "$ai2_pane" "$ai2" >/dev/null
+  fi
+
+  herdr pane run "$ai_pane" "$ai" >/dev/null
+  $EDITOR .
+}
