@@ -1,0 +1,66 @@
+onboarding = false
+
+[terminal]
+new_cwd = "follow"            # tmux: -c "#{pane_current_path}"
+
+[ui]
+tab_bar_position = "top"      # tmux: status-position top
+
+[keys]
+prefix = "ctrl+b"
+
+# --- General ---
+reload_config = "prefix+q"    # tmux: bind q source-file
+detach = "prefix+d"           # moved off q (tmux default d)
+goto = ""                     # freed prefix+g for lazygit
+open_notification_target = "" # freed prefix+o for lazydocker
+
+# --- Panes ---
+split_horizontal = "prefix+h" # tmux: bind h split-window -v (stacked)
+split_vertical = "prefix+v"   # tmux: bind v split-window -h (side by side)
+close_pane = ["prefix+x", "alt+w"]  # tmux: x + M-w kill-pane
+zoom = "alt+i"                # tmux: M-i resize-pane -Z
+cycle_pane_next = "alt+u"     # tmux: M-u select-pane next
+cycle_pane_previous = "alt+o" # tmux: M-o select-pane prev
+focus_pane_left = "ctrl+alt+left"
+focus_pane_right = "ctrl+alt+right"
+focus_pane_up = "ctrl+alt+up"
+focus_pane_down = "ctrl+alt+down"
+resize_pane_left = "ctrl+alt+shift+left"
+resize_pane_right = "ctrl+alt+shift+right"
+resize_pane_up = "ctrl+alt+shift+up"
+resize_pane_down = "ctrl+alt+shift+down"
+resize_mode = "prefix+alt+r"  # moved off r (now rename_tab)
+rename_pane = "prefix+alt+p"  # moved off shift+p (now previous_workspace)
+
+# --- Tabs (= tmux windows) ---
+new_tab = "prefix+c"          # tmux: bind c new-window
+rename_tab = "prefix+r"       # tmux: bind r rename-window
+close_tab = "prefix+k"        # tmux: bind k kill-window
+switch_tab = "alt+1..9"       # tmux: M-1..9 select-window
+previous_tab = "alt+h"        # tmux: M-h
+next_tab = "alt+l"            # tmux: M-l
+move_tab_previous = "alt+shift+h" # tmux: M-H swap-window -t -1
+move_tab_next = "alt+shift+l"     # tmux: M-L swap-window -t +1
+
+# --- Workspaces (= tmux sessions) ---
+new_workspace = "prefix+shift+c"     # tmux: bind C new-session
+rename_workspace = "prefix+shift+r"  # tmux: bind R rename-session
+close_workspace = "prefix+shift+k"   # tmux: bind K kill-session
+previous_workspace = ["alt+up", "prefix+shift+p"]  # tmux: M-Up / P
+next_workspace = ["alt+down", "prefix+shift+n"]      # tmux: M-Down / N
+
+# --- Tools (tmux display-popup) ---
+[[keys.command]]
+key = "prefix+g"
+type = "popup"
+command = "lazygit"
+width = "90%"
+height = "90%"
+
+[[keys.command]]
+key = "prefix+o"
+type = "popup"
+command = "lazydocker"
+width = "90%"
+height = "90%"
