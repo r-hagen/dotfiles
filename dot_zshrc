@@ -26,16 +26,19 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # Environment
-export LANG="en_GB.UTF-8"
+# export LANG="en_GB.UTF-8"
 export EDITOR="nvim"
 export VISUAL="nvim"
 export BAT_PAGER="less -R"
 export PAGER="bat"
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANPAGER="bat -l man -p"
 
 # Path
-export PATH=~/.local/bin:$PATH
-export PATH="~/.dotnet/tools:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.dotnet/tools:$PATH"
+
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Aliases
 alias v=nvim
@@ -50,3 +53,17 @@ alias bb="brew update && brew upgrade"
 # Shell
 source ~/.config/shell/rc
 
+
+# pnpm
+export PNPM_HOME="$HOME/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# nvm end
