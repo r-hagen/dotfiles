@@ -18,8 +18,8 @@ open_notification_target = "" # freed prefix+o for lazydocker
 # --- Panes ---
 split_horizontal = "prefix+h" # tmux: bind h split-window -v (stacked)
 split_vertical = "prefix+v"   # tmux: bind v split-window -h (side by side)
-close_pane = ["prefix+x", "alt+w"]  # tmux: x + M-w kill-pane
-zoom = "alt+i"                # tmux: M-i resize-pane -Z
+close_pane = "prefix+x"      # dropped alt+w (lazyvim snacks cycle_win)
+zoom = "alt+z"                # was alt+i (lazyvim snacks toggle_ignored)
 cycle_pane_next = "alt+u"     # tmux: M-u select-pane next
 cycle_pane_previous = "alt+o" # tmux: M-o select-pane prev
 focus_pane_left = "ctrl+alt+left"
@@ -38,8 +38,8 @@ new_tab = "prefix+c"          # tmux: bind c new-window
 rename_tab = "prefix+r"       # tmux: bind r rename-window
 close_tab = "prefix+k"        # tmux: bind k kill-window
 switch_tab = "alt+1..9"       # tmux: M-1..9 select-window
-previous_tab = "alt+h"        # tmux: M-h
-next_tab = "alt+l"            # tmux: M-l
+previous_tab = "alt+,"        # was alt+h (lazyvim snacks toggle_hidden)
+next_tab = "alt+."            # was alt+l, paired with alt+,
 move_tab_previous = "alt+shift+h" # tmux: M-H swap-window -t -1
 move_tab_next = "alt+shift+l"     # tmux: M-L swap-window -t +1
 
