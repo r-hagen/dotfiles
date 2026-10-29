@@ -38,3 +38,7 @@ Commit and push from the source directory:
 ## Secrets
 
 Secrets are stored in `~/.secrets` (not committed) and sourced by `~/.zshrc`.
+
+## Notes
+
+- For Tmux keybinds to work disable Mission Control keybinds on MacOS: `System Preferences > Keyboard > Shortcuts > Mission Control` and uncheck `Move left a space` and `Move right a space`.
