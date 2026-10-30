@@ -14,6 +14,9 @@ Personal `dotfiles` managed with [chezmoi](https://www.chezmoi.io/).
 - [neovim](https://neovim.io/) - `brew install neovim`
 - [herdr](https://herdr.dev) - `brew install herdr`
 - [jq](https://jqlang.org/) - `brew install jq`
+- [fzf](https://github.com/junegunn/fzf) - `brew install fzf` (used by `herdr-reopen`)
+- [zoxide](https://github.com/ajeetdsouza/zoxide) - `brew install zoxide` (used by `herdr-reopen`)
+- netcat with `-U`/`-q` support (OpenBSD variant, used by `herdr-ratio`) - `apt install netcat-openbsd`; macOS's built-in `nc` lacks `-q`
 - [bat](https://github.com/sharkdp/bat) - `brew install bat`
 - [lazygit](https://github.com/jesseduffield/lazygit) - `brew install lazygit`
 - [lazydocker](https://github.com/jesseduffield/lazydocker) - `brew install lazydocker`
