@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Fuzzy-pick a recent directory (zoxide frecency) and focus its herdr workspace,
+# or recreate it if it was closed. Workspaces are matched by label = dir basename.
+# Bound in config.toml as a popup (prefix+f).
+set -euo pipefail
+
+open=$(herdr workspace list | jq -r '.result.workspaces[] | "\(.label)\t\(.workspace_id)"')
+
+dir=$(zoxide query --list |
+  fzf --prompt='workspace> ' --reverse --preview 'ls -A --color=always {}' \
+      --preview-window=right,40%) || exit 0
+label=$(basename "$dir")
+
+id=$(awk -F'\t' -v l="$label" '$1==l {print $2; exit}' <<<"$open")
+if [[ -n $id ]]; then
+  herdr workspace focus "$id" >/dev/null
+else
+  herdr workspace create --cwd "$dir" --label "$label" --focus >/dev/null
+fi

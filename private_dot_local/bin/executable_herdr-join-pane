@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Move the focused herdr pane into tab N of the focused workspace, split right.
+# If tab N does not exist, break the pane out into a new tab (tmux: break-pane).
+# Mirrors tmux: bind M-N join-pane -h -t :N
+# Usage: herdr-join-pane <tab-number>
+set -euo pipefail
+n=${1:?tab number}
+
+snap=$(herdr api snapshot)
+pane=$(jq -r '.result.snapshot.focused_pane_id' <<<"$snap")
+ws=$(jq -r '.result.snapshot.focused_workspace_id' <<<"$snap")
+cur=$(jq -r '.result.snapshot.focused_tab_id' <<<"$snap")
+tab=$(herdr tab list | jq -r --arg w "$ws" --argjson n "$n" \
+  '.result.tabs[] | select(.workspace_id==$w and .number==$n) | .tab_id')
+[[ $tab == "$cur" ]] && exit 0
+
+if [[ -z $tab ]]; then
+  herdr pane move "$pane" --new-tab --focus >/dev/null
+else
+  herdr pane move "$pane" --tab "$tab" --split right --focus >/dev/null
+fi

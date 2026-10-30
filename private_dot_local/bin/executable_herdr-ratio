@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Cycle a split ratio in the focused herdr tab.
+# Usage: herdr-ratio [split_id] [ratios...]
+#   split_id: id from `herdr pane layout` (default split_1_0 = editor|AI in hdl layout)
+#   ratios:   cycle list (default 0.7 0.5 0.3)
+set -euo pipefail
+split=${1:-split_1_0}; shift || true
+ratios=("${@:-0.7 0.5 0.3}"); read -ra ratios <<<"${ratios[*]}"
+
+snap=$(herdr api snapshot)
+tab=$(jq -r '.result.snapshot.focused_tab_id' <<<"$snap")
+cur=$(jq -r --arg t "$tab" --arg s "$split" \
+  '.result.snapshot.layouts[] | select(.tab_id==$t) | .splits[] | select(.id==$s) | .ratio' <<<"$snap")
+[[ -z $cur ]] && exit 0
+
+# split id "split_<depth>_<bits>" -> path: one bool per bit after root (0=first child, 1=second)
+bits=${split##*_}; path="[]"
+[[ $bits != root ]] && path="[$(sed 's/0/false,/g; s/1/true,/g; s/,$//' <<<"$bits")]"
+
+# next ratio after the closest match to current
+next=${ratios[0]}
+for i in "${!ratios[@]}"; do
+  if awk -v a="$cur" -v b="${ratios[$i]}" 'BEGIN{exit !((a-b)^2 < 0.0004)}'; then
+    next=${ratios[$(( (i + 1) % ${#ratios[@]} ))]}; break
+  fi
+done
+
+printf '{"id":"r","method":"layout.set_split_ratio","params":{"tab_id":"%s","path":%s,"ratio":%s}}\n' \
+  "$tab" "$path" "$next" | nc -U -q1 "${XDG_CONFIG_HOME:-$HOME/.config}/herdr/herdr.sock" >/dev/null
