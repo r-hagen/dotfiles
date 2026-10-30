@@ -64,3 +64,69 @@ type = "popup"
 command = "lazydocker"
 width = "90%"
 height = "90%"
+
+# --- Layout presets (tmux: prefix+space next-layout) ---
+[[keys.command]]
+key = "prefix+space"          # cycle editor|AI width 70/50/30
+type = "shell"
+command = "herdr-ratio split_1_0 0.7 0.5 0.3"
+
+[[keys.command]]
+key = "prefix+shift+space"    # cycle bottom terminal height 85/70/50
+type = "shell"
+command = "herdr-ratio split_0_root 0.85 0.7 0.5"
+
+# --- Join pane into tab N (tmux: bind M-N join-pane -h -t :N) ---
+[[keys.command]]
+key = "prefix+alt+1"
+type = "shell"
+command = "herdr-join-pane 1"
+
+[[keys.command]]
+key = "prefix+alt+2"
+type = "shell"
+command = "herdr-join-pane 2"
+
+[[keys.command]]
+key = "prefix+alt+3"
+type = "shell"
+command = "herdr-join-pane 3"
+
+[[keys.command]]
+key = "prefix+alt+4"
+type = "shell"
+command = "herdr-join-pane 4"
+
+[[keys.command]]
+key = "prefix+alt+5"
+type = "shell"
+command = "herdr-join-pane 5"
+
+[[keys.command]]
+key = "prefix+alt+6"
+type = "shell"
+command = "herdr-join-pane 6"
+
+[[keys.command]]
+key = "prefix+alt+7"
+type = "shell"
+command = "herdr-join-pane 7"
+
+[[keys.command]]
+key = "prefix+alt+8"
+type = "shell"
+command = "herdr-join-pane 8"
+
+[[keys.command]]
+key = "prefix+alt+9"
+type = "shell"
+command = "herdr-join-pane 9"
+
+
+# --- Reopen recent workspace (fzf over zoxide dirs) ---
+[[keys.command]]
+key = "prefix+f"
+type = "popup"
+command = "herdr-reopen"
+width = "70%"
+height = "60%"
